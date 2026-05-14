@@ -61,10 +61,6 @@ A premium, high-performance developer portfolio featuring an **interactive AI-aw
    npm run build
    ```
 
-## 📜 License
-
-This project is open-source and available under the [MIT License](LICENSE).
-
 ---
 
 Designed and Developed by **Om Kaushik**
