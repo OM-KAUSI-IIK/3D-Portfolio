@@ -1,4 +1,4 @@
-# Om Kaushik | 3D Agentic AI Portfolio
+# Om Kaushik | 3D  Portfolio
 
 A premium, high-performance developer portfolio featuring an **interactive AI-aware 3D avatar**, cinematic scroll-linked GSAP animations, and a sophisticated dark aesthetic. This project showcases the intersection of **Full-Stack Development** and **Agentic AI Engineering** through an immersive, state-of-the-art web experience.
 
