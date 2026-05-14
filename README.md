@@ -4,6 +4,13 @@ A premium, high-performance developer portfolio featuring an **interactive AI-aw
 
 ---
 
+## 📸 Preview
+
+![Portfolio Desktop View](./public/images/screenshots/preview1.png)
+![3D Avatar Interaction](./public/images/screenshots/preview2.png)
+
+---
+
 ## 🚀 Key Features
 
 - **Interactive 3D Avatar**: A high-fidelity GLB model with "Anatomical Head Tracking" that naturally follows the user's cursor with cinematic smoothing.
