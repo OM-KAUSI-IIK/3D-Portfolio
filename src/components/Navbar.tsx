@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import type { MouseEvent } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
@@ -6,70 +7,116 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
-export let smoother: ScrollSmoother;
+export let smoother: ScrollSmoother | undefined;
 
 const Navbar = () => {
   useEffect(() => {
-    smoother = ScrollSmoother.create({
-      wrapper: "#smooth-wrapper",
-      content: "#smooth-content",
-      smooth: 1.7,
-      speed: 1.7,
-      effects: true,
-      autoResize: true,
-      ignoreMobileResize: true,
-    });
+    const createSmoother = () => {
+      if (window.innerWidth <= 1024 || smoother) {
+        document.body.style.overflowY = "auto";
+        return;
+      }
 
-    smoother.scrollTop(0);
-    smoother.paused(true);
-
-    let links = document.querySelectorAll(".header ul a");
-    links.forEach((elem) => {
-      let element = elem as HTMLAnchorElement;
-      element.addEventListener("click", (e) => {
-        if (window.innerWidth > 1024) {
-          e.preventDefault();
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href");
-          smoother.scrollTo(section, true, "top top");
-        }
+      smoother = ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 0.9,
+        speed: 1,
+        effects: false,
+        autoResize: true,
+        ignoreMobileResize: true,
       });
-    });
-    window.addEventListener("resize", () => {
-      ScrollSmoother.refresh(true);
-    });
+
+      smoother.scrollTop(0);
+      smoother.paused(!document.querySelector("main.main-active"));
+    };
+
+    createSmoother();
+
+    let resizeTimer: number | undefined;
+    const resizeFn = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        if (window.innerWidth <= 1024) {
+          if (smoother) {
+            smoother.kill();
+            smoother = undefined;
+          }
+          document.body.style.overflowY = "auto";
+          ScrollTrigger.refresh();
+          return;
+        }
+
+        createSmoother();
+        ScrollSmoother.refresh(true);
+      }, 150);
+    };
+    window.addEventListener("resize", resizeFn);
+
+    return () => {
+      window.clearTimeout(resizeTimer);
+      window.removeEventListener("resize", resizeFn);
+      if (smoother) smoother.kill();
+      smoother = undefined;
+    };
   }, []);
+
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (window.innerWidth <= 1024) return;
+
+    const section = event.currentTarget.getAttribute("data-href");
+    if (!section || !smoother) return;
+
+    event.preventDefault();
+    ScrollTrigger.refresh();
+    
+    // Using a timeout to ensure the browser has finished any layout shifts 
+    // caused by the refresh before we attempt to scroll.
+    setTimeout(() => {
+      if (smoother) {
+        smoother.scrollTo(section, true, "top top");
+      }
+    }, 10);
+  };
+
   return (
     <>
       <div className="header">
         <a href="/#" className="navbar-title" data-cursor="disable">
-          AM
+          OK
         </a>
         <a
-          href="https://www.linkedin.com/in/akashrmalhotra/"
+          href="https://www.linkedin.com/in/om-kaushik0103"
           className="navbar-connect"
           data-cursor="disable"
           target="_blank"
           rel="noreferrer"
         >
-          linkedin.com/in/akashrmalhotra
+          linkedin.com/in/om-kaushik0103
         </a>
+        <span className="navbar-separator">|</span>
         <ul>
           <li>
-            <a data-href="#about" href="#about">
+            <a data-href="#about" href="#about" onClick={handleNavClick}>
               <HoverLinks text="ABOUT" />
             </a>
           </li>
           <li>
-            <a data-href="#work" href="#work">
+            <a data-href="#whatIDO" href="#whatIDO" onClick={handleNavClick}>
+              <HoverLinks text="WHAT I DO" />
+            </a>
+          </li>
+          <li>
+            <a data-href="#work" href="#work" onClick={handleNavClick}>
               <HoverLinks text="WORK" />
             </a>
           </li>
           <li>
-            <a data-href="#contact" href="#contact">
+            <a data-href="#contact" href="#contact" onClick={handleNavClick}>
               <HoverLinks text="CONTACT" />
             </a>
           </li>
+
         </ul>
       </div>
 
@@ -81,3 +128,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

@@ -1,0 +1,69 @@
+﻿--- PAGE 1 ---
+OM KAUSHIK
+Email: agomkaushik@gmail.com
+Linkedin:Om kaushik Mobile: +91 9897211514
+EDUCATION
+GOVIND BALLABH PANT INSTITUTE OF ENGINEERING AND TECHNOLOGY, PAURI GARHWAL
+B.Tech Computer Science (AI&ML) Aug 2020-July 2024 - 70%
+SKILLS SUMMARY
+ΓùÅ Programming Languages: C/C++, JavaScript, Python, SQL
+ΓùÅ Core CS Fundamentals: Data Structure & algorithms , Object-Oriented Programming Structure
+ΓùÅ Frontend Development: HTML5, CSS3, Tailwind CSS,React .js, Responsive Design
+ΓùÅ Backend Development: Node.js, Express.js,Flask,Django, RESTful APIs, WebSocket
+ΓùÅ Databases: MongoDB, Supabase
+ΓùÅ Python- Libraries: Pandas, Numpy, Scipy, Matplotlib, Scikit-Learn, Seaborn, StatsModels, SQLAlchemy
+ΓùÅ Operating Systems: Windows , Red Hat Enterprise Linux (Fedora)
+ΓùÅ Developer Tools: Visual Studio Code, PyCharm, GItHub, Tableau, PowerBI
+ΓùÅ Soft Skills: Technical Communication, Team Collaboration, Problem Solving, Leadership, Continuous Learning
+WORK EXPERIENCE
+Data Analyst | Research & Digital Systems ΓÇôCSIR-CBRI(Central Building Research Institute) (Dec.2025 - currently working)
+Γùï Designed and implemented end-to-end data analysis workflows for high-volume experimental datasets, including data
+preprocessing, statistical modeling, time-series transformation, and visualization using Python (NumPy, Pandas, Matplotlib),
+enabling structured insight generation and performance evaluation.
+Γùï Analyzed complex measurement datasets to identify trends, extract quantitative metrics, and support technical research
+objectives through data-driven modeling and validation techniques.
+Γùï Supported digital platform enhancement initiatives by contributing to the development and content structuring of an
+institutional web platform using the MERN stack, improving data accessibility, usability, and information management.
+Intern( Frontend Developer ), Mapsily (April.2025 - Nov.2025)
+Γùï Architected a responsive React.js dashboard that visualized real-time data, slashing data retrieval time by 30% and elevating
+overall user experience
+Γùï Crafted reusable React components for dynamic form inputs, accelerating new feature development by 25% and incorporating
+ARIA standards for WCAG compliance.
+Intern, BEL ( Bharat Electronics ). Kotdwar, Uttrakhand (June.2023 - July.2023)
+Γùï Gained extensive hands-on experience with emerging technologies at BEL-Kotdwar while developing deep practical insights into
+advanced security systems architecture, implementation, and industry best practices.
+Γùï Participated in complete project lifecycle management from conceptualization to deployment, ensuring alignment with
+organizational security requirements and staying at the forefront of industry innovations in defense technology.
+PROJECTS
+CSIR-CBRI PROJECTS: (Currently Working)
+1) Data Analysis & Signal Processing:
+Γùï Data Analysis & Statistical Modeling: Analyzed large-scale experimental datasets using Python (Pandas, NumPy, SciPy) to
+identify performance trends, detect anomalies, and generate actionable insights aligned with business and research objectives.
+Γùï Automation & Reporting Frameworks: Built automated data pipelines and dynamic visualization dashboards to standardize
+reporting, reduce manual analysis time, and improve decision-making efficiency across cross-functional teams.
+2) Web Development (MERN):
+Γùï CSIR-CBRI Official Website Development (MERN Stack): Worked on frontend and backend modules using MongoDB, Express.js,
+React.js, and Node.js to manage institutional content and present research outputs in a structured digital format.
+CodeSync Meet(Remote Interview Platform)
+Γùï Engineered a full-stack interview platform integrating a VSCode-powered code editor, real-time video conferencing, secure
+code execution, live chat, synchronized mic/camera controls, screen sharing, recording, and confetti-triggered feedback
+notifications to deliver an interactive and analytics-driven virtual assessment experience.
+Γùï Built scalable backend and collaboration workflows using Node.js & Express REST APIs, Clerk authentication, background
+asynchronous jobs, TanStack Query for high-speed data fetching, live dashboard analytics, GitHub workflow automation, and
+advanced PR analysis (CodeRabbit) to optimize secure and efficient coding interview management.
+Medicose-Plus-Disease Prediction Platform
+Γùï Built and integrated a full-stack Disease Prediction Platform (Medicose Plus) using React (Vite), Node.js, Express, MongoDB, and
+Flask, implementing JWT authentication, protected routes, and RESTful APIs for prediction, symptom metadata, doctor discovery,
+consultation booking, and health-metric tracking (BMI/Glucose) with dashboard-based data visualization (GlucoChart).
+Γùï Designed and productionized an ML classification pipeline with scikit-learn on Dataset, including preprocessing, label encoding,
+Stratified 5-Fold Cross-Validation, model selection (RandomForest vs ExtraTrees), artifact persistence via joblib, and inference
+APIs returning disease prediction, confidence score, and top alternatives.
+TicketPortal(BookMyShow-Clone using MERN )
+Γùï using MERN stack (MongoDB, Express.js , React.js, Node.js) with responsive design, secure authentication, movie browsing, seat
+selection, and integrated payment processing through RESTful API architecture.
+Γùï Optimized scalable MongoDB database structure for efficient storage and retrieval of movie data, user profiles, and booking history
+while implementing a comprehensive booking management system with enhanced query performance.
+PROFESSIONAL SUMMARY
+Strong expertise in data analysis, visualization, and experimental data interpretation, with hands-on MERN stack development.
+Proficient in transforming complex datasets into actionable insights, building data-driven applications, and collaborating across
+technical teams. Experienced with real-world institutional data, AI/ML exposure, and delivering scalable, insight-focused solutions.

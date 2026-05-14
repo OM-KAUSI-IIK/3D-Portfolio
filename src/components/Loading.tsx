@@ -10,14 +10,17 @@ const Loading = ({ percent }: { percent: number }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  if (percent >= 100) {
-    setTimeout(() => {
-      setLoaded(true);
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 1000);
-    }, 600);
-  }
+  useEffect(() => {
+    if (percent >= 100 && !loaded) {
+      const t1 = setTimeout(() => {
+        setLoaded(true);
+        setTimeout(() => {
+          setIsLoaded(true);
+        }, 1000);
+      }, 600);
+      return () => clearTimeout(t1);
+    }
+  }, [percent, loaded]);
 
   useEffect(() => {
     import("./utils/initialFX").then((module) => {
@@ -31,7 +34,7 @@ const Loading = ({ percent }: { percent: number }) => {
         }, 900);
       }
     });
-  }, [isLoaded]);
+  }, [isLoaded, setIsLoading]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
     const { currentTarget: target } = e;
@@ -95,22 +98,25 @@ export default Loading;
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
+  // Phase 1: Quickly run to ~70% in ~800ms
   let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
+    if (percent < 70) {
+      const rand = Math.round(Math.random() * 8) + 3; // 3-10 per tick
+      percent = Math.min(percent + rand, 70);
       setLoading(percent);
     } else {
       clearInterval(interval);
+      // Phase 2: Slow crawl 70->92 while model loads (every 600ms)
       interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
-        if (percent > 91) {
+        if (percent < 92) {
+          percent += Math.round(Math.random() * 2); // 0-2 per tick
+          setLoading(Math.min(percent, 92));
+        } else {
           clearInterval(interval);
         }
-      }, 2000);
+      }, 600);
     }
-  }, 100);
+  }, 80);
 
   function clear() {
     clearInterval(interval);
@@ -120,15 +126,16 @@ export const setProgress = (setLoading: (value: number) => void) => {
   function loaded() {
     return new Promise<number>((resolve) => {
       clearInterval(interval);
+      // Phase 3: Fast fill to 100 once model is ready
       interval = setInterval(() => {
         if (percent < 100) {
-          percent++;
-          setLoading(percent);
+          percent += 2;
+          setLoading(Math.min(percent, 100));
         } else {
           resolve(percent);
           clearInterval(interval);
         }
-      }, 2);
+      }, 8);
     });
   }
   return { loaded, percent, clear };

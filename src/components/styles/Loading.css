@@ -60,16 +60,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  will-change: transform, min-width, min-height;
 }
 
 .loading-clicked {
   transition-delay: 0ms;
   transition-timing-function: cubic-bezier(0.33, 0.11, 1, 0.72);
-  transform: scale(1);
+  transform: scale(1) translateZ(0);
   min-width: calc(100vw + 5000px);
   border-radius: 5000px;
   min-height: calc(100vh + 500px);
   box-shadow: none;
+  will-change: auto;
 }
 
 .loading-clicked .loading-button {

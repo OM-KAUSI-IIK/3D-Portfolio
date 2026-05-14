@@ -1,5 +1,6 @@
 import { lazy, PropsWithChildren, Suspense, useEffect, useState } from "react";
 import About from "./About";
+import AgenticAI from "./AgenticAI";
 import Career from "./Career";
 import Contact from "./Contact";
 import Cursor from "./Cursor";
@@ -9,6 +10,7 @@ import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
 import setSplitText from "./utils/splitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const TechStack = lazy(() => import("./TechStack"));
 
@@ -18,16 +20,31 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   );
 
   useEffect(() => {
+    let resizeTimer: number | undefined;
+    let mounted = true;
+
     const resizeHandler = () => {
-      setSplitText();
-      setIsDesktopView(window.innerWidth > 1024);
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        if (!mounted) return;
+        setSplitText();
+        setIsDesktopView(window.innerWidth > 1024);
+        ScrollTrigger.refresh();
+      }, 150);
     };
-    resizeHandler();
+
+    document.fonts.ready.then(() => {
+      if (!mounted) return;
+      resizeHandler();
+    });
+
     window.addEventListener("resize", resizeHandler);
     return () => {
+      mounted = false;
+      window.clearTimeout(resizeTimer);
       window.removeEventListener("resize", resizeHandler);
     };
-  }, [isDesktopView]);
+  }, []);
 
   return (
     <div className="container-main">
@@ -48,8 +65,8 @@ const MainContainer = ({ children }: PropsWithChildren) => {
                 <TechStack />
               </Suspense>
             )}
-            <Contact />
-          </div>
+            <AgenticAI />
+            <Contact />          </div>
         </div>
       </div>
     </div>

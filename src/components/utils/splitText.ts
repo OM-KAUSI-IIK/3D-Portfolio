@@ -12,19 +12,32 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 
 export default function setSplitText() {
   ScrollTrigger.config({ ignoreMobileResize: true });
-  if (window.innerWidth < 900) return;
   const paras: NodeListOf<ParaElement> = document.querySelectorAll(".para");
   const titles: NodeListOf<ParaElement> = document.querySelectorAll(".title");
+
+  const clearSplit = (element: ParaElement) => {
+    if (element.anim) {
+      element.anim.progress(1).kill();
+      element.anim = undefined;
+    }
+    if (element.split) {
+      element.split.revert();
+      element.split = undefined;
+    }
+  };
+
+  if (window.innerWidth < 900) {
+    paras.forEach(clearSplit);
+    titles.forEach(clearSplit);
+    return;
+  }
 
   const TriggerStart = window.innerWidth <= 1024 ? "top 60%" : "20% 60%";
   const ToggleAction = "play pause resume reverse";
 
   paras.forEach((para: ParaElement) => {
     para.classList.add("visible");
-    if (para.anim) {
-      para.anim.progress(1).kill();
-      para.split?.revert();
-    }
+    clearSplit(para);
 
     para.split = new SplitText(para, {
       type: "lines,words",
@@ -49,10 +62,7 @@ export default function setSplitText() {
     );
   });
   titles.forEach((title: ParaElement) => {
-    if (title.anim) {
-      title.anim.progress(1).kill();
-      title.split?.revert();
-    }
+    clearSplit(title);
     title.split = new SplitText(title, {
       type: "chars,lines",
       linesClass: "split-line",
@@ -76,5 +86,6 @@ export default function setSplitText() {
     );
   });
 
-  ScrollTrigger.addEventListener("refresh", () => setSplitText());
+  // Don't hook into ScrollTrigger refresh — it causes infinite recursion.
+  // Text splitting happens once on mount and on window resize via MainContainer.
 }

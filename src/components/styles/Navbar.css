@@ -33,12 +33,23 @@
 .navbar-connect {
   position: absolute;
   display: none;
-  left: 50%;
+  left: 40%;
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 15px;
   letter-spacing: 1px;
   font-weight: 500;
+}
+.navbar-separator {
+  position: absolute;
+  display: none;
+  left: 65%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: 200;
+  opacity: 0.4;
+  color: #fff;
 }
 .navbar-title {
   font-weight: 700;
@@ -62,7 +73,8 @@
   }
 }
 @media only screen and (min-width: 900px) {
-  .navbar-connect {
+  .navbar-connect,
+  .navbar-separator {
     display: block;
   }
 }

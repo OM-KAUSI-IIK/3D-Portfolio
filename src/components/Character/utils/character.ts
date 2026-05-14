@@ -1,7 +1,31 @@
 import * as THREE from "three";
 import { DRACOLoader, GLTF, GLTFLoader } from "three-stdlib";
 import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
-import { decryptFile } from "./decrypt";
+
+const MODEL_PATH = "/models/Final_model.glb?v=1";
+const TARGET_MODEL_HEIGHT = 14.9;
+const TARGET_FOOT_Y = 0;
+
+const fitCharacterToViewport = (character: THREE.Object3D) => {
+  const bounds = new THREE.Box3().setFromObject(character);
+  if (bounds.isEmpty()) return;
+
+  const size = bounds.getSize(new THREE.Vector3());
+  if (size.y > 0) {
+    const scaleFactor = TARGET_MODEL_HEIGHT / size.y;
+    character.scale.multiplyScalar(scaleFactor);
+    character.updateWorldMatrix(true, true);
+  }
+
+  const fittedBounds = new THREE.Box3().setFromObject(character);
+  if (fittedBounds.isEmpty()) return;
+
+  const center = fittedBounds.getCenter(new THREE.Vector3());
+  character.position.x -= center.x;
+  character.position.z -= center.z;
+  character.position.y += TARGET_FOOT_Y - fittedBounds.min.y;
+  character.updateWorldMatrix(true, true);
+};
 
 const setCharacter = (
   renderer: THREE.WebGLRenderer,
@@ -13,33 +37,31 @@ const setCharacter = (
   dracoLoader.setDecoderPath("/draco/");
   loader.setDRACOLoader(dracoLoader);
 
-  const loadCharacter = () => {
-    return new Promise<GLTF | null>(async (resolve, reject) => {
-      try {
-        const encryptedBlob = await decryptFile(
-          "/models/character.enc?v=2",
-          "MyCharacter12"
-        );
-        const blobUrl = URL.createObjectURL(new Blob([encryptedBlob]));
-
+  const loadCharacter = async () => {
+    try {
+      return new Promise<GLTF | null>((resolve, reject) => {
         let character: THREE.Object3D;
         loader.load(
-          blobUrl,
+          MODEL_PATH,
           async (gltf) => {
             character = gltf.scene;
+            fitCharacterToViewport(character);
             await renderer.compileAsync(character, camera, scene);
-            character.traverse((child: any) => {
-              if (child.isMesh) {
-                const mesh = child as THREE.Mesh;
+            character.traverse((child: THREE.Object3D) => {
+              const mesh = child as THREE.Mesh;
+              if (mesh.isMesh) {
+                const material = mesh.material;
 
                 // Change clothing colors to match site theme
-                if (mesh.material) {
-                  if (mesh.name === "BODY.SHIRT") { // The shirt mesh
-                    const newMat = (mesh.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
+                if (material && !Array.isArray(material)) {
+                  if (mesh.name === "BODY.SHIRT") {
+                    const newMat =
+                      material.clone() as THREE.MeshStandardMaterial;
                     newMat.color = new THREE.Color("#8B4513");
                     mesh.material = newMat;
                   } else if (mesh.name === "Pant") {
-                    const newMat = (mesh.material as THREE.Material).clone() as THREE.MeshStandardMaterial;
+                    const newMat =
+                      material.clone() as THREE.MeshStandardMaterial;
                     newMat.color = new THREE.Color("#000000");
                     mesh.material = newMat;
                   }
@@ -53,8 +75,10 @@ const setCharacter = (
             resolve(gltf);
             setCharTimeline(character, camera);
             setAllTimeline();
-            character!.getObjectByName("footR")!.position.y = 3.36;
-            character!.getObjectByName("footL")!.position.y = 3.36;
+            const rightFoot = character.getObjectByName("footR");
+            const leftFoot = character.getObjectByName("footL");
+            if (rightFoot) rightFoot.position.y = TARGET_FOOT_Y;
+            if (leftFoot) leftFoot.position.y = TARGET_FOOT_Y;
 
             // Monitor scale is handled by GsapScroll.ts animations
 
@@ -66,11 +90,11 @@ const setCharacter = (
             reject(error);
           }
         );
-      } catch (err) {
-        reject(err);
-        console.error(err);
-      }
-    });
+      });
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   };
 
   return { loadCharacter };

@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
-import { EffectComposer, N8AO } from "@react-three/postprocessing";
+// Removed expensive EffectComposer for massive performance gain
 import {
   BallCollider,
   Physics,
@@ -128,27 +128,23 @@ const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
-      setIsActive(scrollY > threshold);
-    };
-    document.querySelectorAll(".header a").forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", () => {
-        const interval = setInterval(() => {
-          handleScroll();
-        }, 10);
-        setTimeout(() => {
-          clearInterval(interval);
-        }, 1000);
-      });
+    import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+      setTimeout(() => ScrollTrigger.refresh(), 100);
     });
-    window.addEventListener("scroll", handleScroll);
+    
+    // Completely replaced layout-thrashing scroll polling with an efficient native Observer
+    const techStackNode = document.querySelector(".techstack");
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsActive(entry.isIntersecting);
+      },
+      { rootMargin: "400px 0px" } // Activate slightly before scrolling into view
+    );
+    
+    if (techStackNode) observer.observe(techStackNode);
+    
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
     };
   }, []);
   const materials = useMemo(() => {
@@ -168,7 +164,7 @@ const TechStack = () => {
 
   return (
     <div className="techstack">
-      <h2> My Techstack</h2>
+      <h2> My Tech Stack</h2>
 
       <Canvas
         shadows
@@ -203,9 +199,6 @@ const TechStack = () => {
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
-        <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
-        </EffectComposer>
       </Canvas>
     </div>
   );

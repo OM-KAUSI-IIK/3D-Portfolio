@@ -6,7 +6,8 @@ const Career = () => {
       <div className="career-container">
         <h2>
           My career <span>&</span>
-          <br /> experience
+          <br />
+          experience
         </h2>
         <div className="career-info">
           <div className="career-timeline">
@@ -15,58 +16,48 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Co-Founder</h4>
-                <h5>CallHQ.ai</h5>
+                <h4>Data Analyst</h4>
+                <h5>CSIR-CBRI · Roorkee</h5>
               </div>
               <h3>NOW</h3>
             </div>
             <p>
-              Building CallHQ.ai, a voice AI platform for
-              automating customer calls, support, and conversions.
+              Designing end-to-end data analysis workflows for high-volume
+              experimental datasets using Python (NumPy, Pandas, Matplotlib).
+              Automating reporting pipelines and building data-driven dashboards
+              to accelerate institutional decision-making. Contributing to the
+              official CSIR-CBRI web platform using the MERN stack, improving
+              data accessibility and content management.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Adobe</h4>
-                <h5>6+ years · Noida</h5>
+                <h4>Frontend Developer Intern</h4>
+                <h5>Mapsily</h5>
               </div>
-              <h3>2017–24</h3>
+              <h3>Apr–Nov 2025</h3>
             </div>
             <p>
-              Senior Lead Software Engineer (Feb 2024 – May 2024). Lead Software
-              Engineer (Feb 2021 – Feb 2024). Software Engineer II (Dec 2017 –
-              Feb 2021): internationalization, globalization, and localization for
-              Adobe Technical Communication Suite; functional and linguistic testing
-              strategy; in-house tooling; collaboration with product and engineering
-              for high-quality localized releases.
+              Architected a responsive React.js dashboard visualizing real-time
+              data, slashing data retrieval time by 30%. Crafted reusable React
+              components with ARIA standards for WCAG compliance, accelerating
+              feature development by 25%.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Consultant</h4>
-                <h5>Genpact Headstrong </h5>
+                <h4>Intern — Defense Tech</h4>
+                <h5>BEL (Bharat Electronics), Kotdwar</h5>
               </div>
-              <h3>2016–17</h3>
+              <h3>Jun–Jul 2023</h3>
             </div>
             <p>
-              Sep 2016 – Nov 2017. Developed and maintained WCF services consumed
-              by the UI; deployment support across environments; NUnit tests and
-              coverage; bug fixes from QA and users; database work.
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>Sf Engineer</h4>
-                <h5>Infogain</h5>
-              </div>
-              <h3>2013-16</h3>
-            </div>
-            <p>
-              Software engineering across enterprise projects, contributing to
-              design, development, and delivery of business applications.
+              Gained hands-on exposure to advanced defense security systems
+              architecture. Participated in full project lifecycle management—
+              from conceptualization to deployment—aligned with organizational
+              security requirements and defense-tech best practices.
             </p>
           </div>
         </div>

@@ -8,24 +8,24 @@ const WhatIDo = () => {
     containerRef.current[index] = el;
   };
   useEffect(() => {
+    const cleanupFns: Array<() => void> = [];
+
     if (ScrollTrigger.isTouch) {
       containerRef.current.forEach((container) => {
         if (container) {
           container.classList.remove("what-noTouch");
-          container.addEventListener("click", () => handleClick(container));
+          const onClick = () => handleClick(container);
+          container.addEventListener("click", onClick);
+          cleanupFns.push(() => container.removeEventListener("click", onClick));
         }
       });
     }
     return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
-      });
+      cleanupFns.forEach((cleanup) => cleanup());
     };
   }, []);
   return (
-    <div className="whatIDO">
+    <div className="whatIDO" id="whatIDO">
       <div className="what-box">
         <h2 className="title">
           W<span className="hat-h2">HAT</span>
@@ -87,20 +87,22 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>AI & AUTOMATION</h3>
-              <h4>Workflow Intelligence for Organizations</h4>
+              <h3>FULL-STACK DEV</h3>
+              <h4>MERN Stack & API Engineering</h4>
               <p>
-                AI specialist helping organizations automate workflows—internal ops
-                and customer-facing—so teams ship faster with less manual work.
+                Building scalable, production-ready full-stack applications using
+                the MERN stack. From RESTful APIs and real-time WebSocket systems
+                to dynamic React UIs—I ship complete products end to end.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skillset &amp; tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">LLMs &amp; agents</div>
-                <div className="what-tags">Workflow design</div>
-                <div className="what-tags">RAG &amp; retrieval</div>
-                <div className="what-tags">Evals &amp; guardrails</div>
-                <div className="what-tags">Integrations</div>
-                <div className="what-tags">Product strategy</div>
+                <div className="what-tags">React.js</div>
+                <div className="what-tags">Node.js & Express</div>
+                <div className="what-tags">MongoDB</div>
+                <div className="what-tags">REST APIs</div>
+                <div className="what-tags">WebSocket</div>
+                <div className="what-tags">Flask & Django</div>
+                <div className="what-tags">Supabase</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -124,21 +126,62 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>BUILD &amp; SCALE</h3>
-              <h4>Shipping AI in Production</h4>
+              <h3>AGENTIC AI</h3>
+              <h4>Autonomous Agents & LLM Engineering</h4>
               <p>
-                I build the systems behind it: APIs, data, voice/real-time, and
-                full-stack products—production-ready, not slide decks.
+                Designing intelligent multi-agent systems using LangChain,
+                CrewAI, AutoGen & LangGraph. From prompt engineering to
+                tool-calling agents and RAG pipelines—I build AI that reasons
+                and acts autonomously.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skillset &amp; tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Node.js</div>
+                <div className="what-tags">LangChain</div>
+                <div className="what-tags">CrewAI</div>
+                <div className="what-tags">AutoGen</div>
+                <div className="what-tags">LangGraph</div>
+                <div className="what-tags">n8n Workflows</div>
+                <div className="what-tags">Prompt Engineering</div>
+                <div className="what-tags">ReAct & CoT</div>
+              </div>
+              <div className="what-arrow"></div>
+            </div>
+          </div>
+          <div
+            className="what-content what-noTouch"
+            ref={(el) => setRef(el, 2)}
+          >
+            <div className="what-border1">
+              <svg height="100%">
+                <line
+                  x1="0"
+                  y1="100%"
+                  x2="100%"
+                  y2="100%"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeDasharray="6,6"
+                />
+              </svg>
+            </div>
+            <div className="what-corner"></div>
+            <div className="what-content-in">
+              <h3>DATA & ML</h3>
+              <h4>Analysis, Modeling & Insights</h4>
+              <p>
+                Transforming complex experimental datasets into actionable
+                insights using Python data science stack. Building ML pipelines
+                from preprocessing and model selection to production inference
+                APIs with scikit-learn.
+              </p>
+              <h5>Skillset &amp; tools</h5>
+              <div className="what-content-flex">
                 <div className="what-tags">Python</div>
-                <div className="what-tags">REST &amp; real-time APIs</div>
-                <div className="what-tags">PostgreSQL</div>
-                <div className="what-tags">MongoDB</div>
-                <div className="what-tags">React</div>
-                <div className="what-tags">Cloud &amp; infra</div>
+                <div className="what-tags">Pandas & NumPy</div>
+                <div className="what-tags">scikit-learn</div>
+                <div className="what-tags">Matplotlib</div>
+                <div className="what-tags">SciPy</div>
+                <div className="what-tags">Tableau & PowerBI</div>
               </div>
               <div className="what-arrow"></div>
             </div>

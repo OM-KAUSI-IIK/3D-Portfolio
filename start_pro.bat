@@ -1,0 +1,3 @@
+@echo off
+echo Starting Om Kaushik's 3D Portfolio...
+npm run dev
